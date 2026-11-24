@@ -14,7 +14,7 @@ const contentSecurityPolicy = [
   "connect-src 'self' https://api.github.com",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self' mailto:",
+  "form-action 'self'",
 ].join('; ')
 
 // https://vite.dev/config/

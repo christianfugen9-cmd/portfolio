@@ -266,3 +266,40 @@ body:has(dialog[open]) { overflow: hidden; }
   }
 
 }
+
+/* Hero depth: soft glow and a faint grid behind the content */
+.hero { position: relative; overflow: hidden; background: radial-gradient(ellipse at 78% 35%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 55%), radial-gradient(ellipse at 92% 85%, color-mix(in srgb, var(--teal) 7%, transparent), transparent 50%), var(--bg); }
+[data-theme="light"] .hero > .site-shell { position: relative; }
+
+/* Hero art: octagons */
+.hero-art-card { padding: 0; border: 0; border-radius: 0; background: none; aspect-ratio: 636 / 514; }
+.hero-art { display: block; width: 100%; height: 100%; }
+.hero-art .art-grid-line { stroke: var(--line); stroke-width: 1; }
+[data-theme="light"] .hero-art .art-grid-line { opacity: .35; }
+.hero-art .art-glow-stop { stop-color: var(--accent-text); }
+[data-theme="light"] .hero-art .art-glow-stop { stop-opacity: .22; }
+.hero-art .art-oct { fill: none; stroke: var(--accent-text); stroke-width: 2.5; stroke-linejoin: round; }
+.hero-art .art-oct-main { fill: color-mix(in srgb, var(--accent-text) 11%, transparent); filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent-text) 40%, transparent)); }
+.hero-art .art-orbit { fill: none; stroke: var(--accent-text); stroke-width: 1.2; opacity: .6; }
+.hero-art .art-orbit-dot { fill: var(--accent-text); filter: drop-shadow(0 0 6px var(--accent-text)); }
+.hero-art .art-ring { fill: none; stroke: var(--accent-text); stroke-width: 1; opacity: .5; }
+.hero-art .art-ring-dotted { fill: none; stroke: var(--accent-text); stroke-width: 1.2; stroke-dasharray: 1 6; stroke-linecap: round; opacity: .55; }
+.hero-art .art-tick { stroke: var(--accent-text); stroke-width: 1; opacity: .5; }
+.hero-art .art-center { fill: var(--accent-text); }
+.hero-art .art-dot { fill: var(--accent-text); opacity: .8; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-art .art-glow { animation: art-glow 6s ease-in-out infinite; }
+  .hero-art .breathe { transform-origin: 318px 257px; animation: art-breathe 6s ease-in-out infinite; }
+  .hero-art .spin-rev { transform-origin: 318px 257px; animation: art-spin 90s linear infinite reverse; }
+  .hero-art .float-a { animation: art-float 7s ease-in-out infinite; }
+  .hero-art .float-b { animation: art-float 9s ease-in-out -3s infinite; }
+  .hero-art .twinkle { animation: art-twinkle 3.5s ease-in-out infinite; }
+  .hero-art .tw2 { animation-delay: -1.2s; }
+  .hero-art .tw3 { animation-delay: -2.4s; }
+  @keyframes art-spin { to { transform: rotate(360deg); } }
+  @keyframes art-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes art-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+  @keyframes art-twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+  @keyframes art-glow { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) { .hero-art .art-orbit-dot { display: none; } }

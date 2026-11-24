@@ -2,19 +2,6 @@
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
 
-if (!reducedMotion.matches) {
-  const throughput = byId('demo-throughput')
-  const latency = byId('demo-latency')
-  const samples = [['1,243', '44 ms'], ['1,261', '41 ms'], ['1,254', '42 ms']]
-  for (const [index, [requests, p99]] of samples.entries()) {
-    setTimeout(() => {
-      if (reducedMotion.matches) return
-      throughput.textContent = requests
-      latency.textContent = p99
-    }, (index + 1) * 1300)
-  }
-}
-
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
   const revealObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
@@ -121,34 +108,10 @@ window.addEventListener('scroll', () => {
   }, 150)
 }, { passive: true })
 
-const filterGroup = document.querySelector('.filter-group')
-const filters = [...filterGroup.querySelectorAll('[data-filter]')]
-const projects = [...document.querySelectorAll('.project-card')]
-filterGroup.hidden = false
-filterGroup.addEventListener('click', (event) => {
-  const selected = event.target.closest('[data-filter]')
-  if (!selected) return
-  const category = selected.dataset.filter
-  for (const filter of filters) {
-    filter.setAttribute('aria-pressed', String(filter === selected))
-  }
-  let count = 0
-  for (const project of projects) {
-    project.hidden = category !== 'all' && project.dataset.category !== category
-    if (!project.hidden) count++
-  }
-  byId('project-count').textContent = count === 1 ? '1 project shown.' : count + ' projects shown.'
-})
-
 const palette = byId('cmd-palette-backdrop')
 const query = byId('cmd-input')
 const results = byId('cmd-results')
-const commandOptions = [
-  ...navLinks,
-  ...document.querySelectorAll('#about .focus-links a'),
-  byId('resume-link'),
-  document.querySelector('.hero-socials [data-copy-email]'),
-]
+const commandOptions = [...navLinks]
 
 function renderCommands() {
   const search = query.value.trim().toLowerCase()
@@ -163,11 +126,6 @@ function renderCommands() {
     option.addEventListener('click', () => {
       palette.close()
       setMenu(false)
-      if (option.matches('button')) {
-        copyEmail()
-        return
-      }
-      if (option.hasAttribute('download')) return
       const section = byId(option.hash.slice(1))
       section.tabIndex = -1
       section.focus({ preventScroll: true })
@@ -207,37 +165,6 @@ document.addEventListener('keydown', (event) => {
     if (palette.open) palette.close()
     else openPalette()
   }
-})
-
-const contactForm = byId('contact-form')
-const emailAddress = contactForm.getAttribute('action').slice('mailto:'.length)
-const toast = byId('toast')
-let toastTimer
-async function copyEmail() {
-  try {
-    await navigator.clipboard.writeText(emailAddress)
-    toast.textContent = 'Email address copied.'
-  } catch {
-    toast.textContent = 'Email address: ' + emailAddress
-  }
-  clearTimeout(toastTimer)
-  toastTimer = setTimeout(() => { toast.textContent = '' }, 4500)
-}
-for (const button of document.querySelectorAll('[data-copy-email]')) {
-  button.addEventListener('click', copyEmail)
-}
-contactForm.addEventListener('submit', (event) => {
-  event.preventDefault()
-  const fields = new FormData(contactForm)
-  const subject = encodeURIComponent(fields.get('subject'))
-  const body = encodeURIComponent([
-    fields.get('message').trim(),
-    '',
-    fields.get('name').trim(),
-    fields.get('email').trim(),
-  ].join('\n'))
-  byId('contact-success').hidden = false
-  location.href = 'mailto:' + emailAddress + '?subject=' + subject + '&body=' + body
 })
 
 const responseData = {
