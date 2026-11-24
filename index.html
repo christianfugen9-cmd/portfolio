@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="/theme-init.js"></script>
-  <link rel="stylesheet" href="/portfolio.css?v=mobile-marquee">
+  <link rel="stylesheet" href="/portfolio.css?v=octagon-motion">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -67,20 +67,42 @@
                 <pattern id="art-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path class="art-grid-line" d="M40 0H0V40" fill="none"/></pattern>
                 <radialGradient id="art-fade" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
                 <mask id="art-mask"><rect width="636" height="514" fill="url(#art-fade)"/></mask>
-                <radialGradient id="art-glow" cx="50%" cy="50%" r="50%"><stop class="art-glow-stop" offset="0" stop-opacity=".55"/><stop class="art-glow-stop" offset="1" stop-opacity="0"/></radialGradient>
+                <radialGradient id="art-glow"><stop class="art-glow-stop" offset="0" stop-opacity=".32"/><stop class="art-glow-stop" offset="1" stop-opacity="0"/></radialGradient>
+                <linearGradient id="art-glass" x2="80%" y2="100%">
+                  <stop class="art-glow-stop" stop-opacity=".36"/>
+                  <stop offset=".48" class="art-glow-stop" stop-opacity=".08"/>
+                  <stop offset="1" class="art-glow-stop" stop-opacity=".17"/>
+                </linearGradient>
+                <linearGradient id="art-reflection">
+                  <stop class="art-glow-stop" stop-opacity="0"/>
+                  <stop offset=".5" class="art-glow-stop" stop-opacity=".4"/>
+                  <stop offset="1" class="art-glow-stop" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="art-rim" x2="85%" y2="100%">
+                  <stop class="art-glow-stop"/>
+                  <stop offset=".55" class="art-glow-stop" stop-opacity=".3"/>
+                  <stop offset="1" class="art-glow-stop" stop-opacity=".85"/>
+                </linearGradient>
+                <polygon id="art-core-shape" pathLength="100" points="457.5,314.8 375.8,396.5 260.2,396.5 178.5,314.8 178.5,199.2 260.2,117.5 375.8,117.5 457.5,199.2"/>
+                <clipPath id="art-core-clip"><use href="#art-core-shape"/></clipPath>
               </defs>
               <rect width="636" height="514" fill="url(#art-grid)" mask="url(#art-mask)"/>
               <circle class="art-glow" cx="318" cy="257" r="230" fill="url(#art-glow)"/>
-              <g transform="rotate(-22 318 257)">
-                <ellipse class="art-orbit" cx="318" cy="257" rx="262" ry="110"/>
+              <path class="art-orbit art-orbit-back" transform="rotate(-22 318 257)" d="M56 257a262 110 0 0 1 524 0"/>
+              <g class="art-core">
+                <use href="#art-core-shape" class="art-oct art-bevel" transform="translate(9 11)"/>
+                <use href="#art-core-shape" class="art-oct art-oct-main"/>
+                <g clip-path="url(#art-core-clip)">
+                  <rect class="art-sweep" x="120" y="45" width="95" height="420" fill="url(#art-reflection)"/>
+                </g>
+                <use href="#art-core-shape" class="art-oct art-inset" transform="translate(318 257) scale(.91) translate(-318 -257)"/>
+                <use href="#art-core-shape" class="art-oct art-edge-run"/>
+                <circle class="art-ring" cx="318" cy="257" r="47"/>
+                <path class="art-tick" d="M370 257h16m-120 0h-16m68 52v16m0-120v-16"/>
               </g>
-              <g class="breathe">
-                <polygon class="art-oct art-oct-main" points="457.5,314.8 375.8,396.5 260.2,396.5 178.5,314.8 178.5,199.2 260.2,117.5 375.8,117.5 457.5,199.2"/>
-              </g>
-              <circle class="art-ring" cx="318" cy="257" r="47"/>
-              <line class="art-tick" x1="370.0" y1="257.0" x2="386.0" y2="257.0"/><line class="art-tick" x1="266.0" y1="257.0" x2="250.0" y2="257.0"/><line class="art-tick" x1="318.0" y1="309.0" x2="318.0" y2="325.0"/><line class="art-tick" x1="318.0" y1="205.0" x2="318.0" y2="189.0"/>
-              <polygon class="art-oct float-a" points="575.1,167.9 539.9,203.1 490.1,203.1 454.9,167.9 454.9,118.1 490.1,82.9 539.9,82.9 575.1,118.1"/>
-              <polygon class="art-oct float-b" points="184.4,403.0 152.0,435.4 106.0,435.4 73.6,403.0 73.6,357.0 106.0,324.6 152.0,324.6 184.4,357.0"/>
+              <path class="art-orbit" transform="rotate(-22 318 257)" d="M580 257a262 110 0 0 1-524 0"/>
+              <polygon class="art-oct art-satellite float-a" points="575.1,167.9 539.9,203.1 490.1,203.1 454.9,167.9 454.9,118.1 490.1,82.9 539.9,82.9 575.1,118.1"/>
+              <polygon class="art-oct art-satellite float-b" points="184.4,403.0 152.0,435.4 106.0,435.4 73.6,403.0 73.6,357.0 106.0,324.6 152.0,324.6 184.4,357.0"/>
             </svg>
           </figure>
         </div>

@@ -282,18 +282,31 @@ body:has(dialog[open]) { overflow: hidden; }
 .hero-art .art-grid-line { stroke: var(--line); stroke-width: 1; }
 [data-theme="light"] .hero-art .art-grid-line { opacity: .35; }
 .hero-art .art-glow-stop { stop-color: var(--accent-text); }
-[data-theme="light"] .hero-art .art-glow-stop { stop-opacity: .22; }
-.hero-art .art-oct { fill: none; stroke: var(--accent-text); stroke-width: 2.5; stroke-linejoin: round; }
-.hero-art .art-oct-main { fill: color-mix(in srgb, var(--accent-text) 11%, transparent); filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent-text) 40%, transparent)); }
-.hero-art .art-orbit { fill: none; stroke: var(--accent-text); stroke-width: 1.2; opacity: .6; }
-.hero-art .art-ring { fill: none; stroke: var(--accent-text); stroke-width: 1; opacity: .5; }
-.hero-art .art-tick { stroke: var(--accent-text); stroke-width: 1; opacity: .5; }
+[data-theme="light"] .hero-art .art-glow { opacity: .35; }
+.hero-art .art-oct { fill: none; stroke: url(#art-rim); stroke-width: 2.5; stroke-linejoin: round; }
+.hero-art .art-oct-main, .hero-art .art-satellite { fill: url(#art-glass); }
+.hero-art .art-bevel { fill: var(--panel); fill-opacity: .75; opacity: .65; stroke-width: 1.5; }
+.hero-art .art-inset { stroke-width: 1; opacity: .35; }
+.hero-art .art-orbit { fill: none; stroke: var(--accent-text); stroke-width: 1.2; opacity: .5; }
+.hero-art .art-orbit-back { opacity: .2; }
+.hero-art .art-ring, .hero-art .art-tick { fill: none; stroke: var(--accent-text); stroke-width: 1; opacity: .45; }
+.hero-art .art-edge-run, .hero-art .art-sweep { opacity: 0; }
+.hero-art .art-edge-run { stroke: var(--accent-text); stroke-width: 3; stroke-dasharray: 13 87; }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-art .art-glow { animation: art-glow 6s ease-in-out infinite; }
-  .hero-art .breathe { transform-origin: 318px 257px; animation: art-breathe 6s ease-in-out infinite; }
-  .hero-art .float-a { animation: art-float 7s ease-in-out infinite; }
-  .hero-art .float-b { animation: art-float 9s ease-in-out -3s infinite; }
-  @keyframes art-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-  @keyframes art-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
-  @keyframes art-glow { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
+  .hero-art .art-core { transform-origin: 318px 257px; animation: art-tilt 8s ease-in-out infinite; }
+  .hero-art .art-satellite { transform-box: fill-box; transform-origin: center; animation: art-float 7s ease-in-out infinite; }
+  .hero-art .float-b { animation-duration: 9s; animation-delay: -3s; animation-direction: reverse; }
+  .hero-art .art-sweep { animation: art-sweep 8s ease-in-out infinite; }
+  .hero-art .art-edge-run { animation: art-edge-run 7s linear infinite; }
+  @keyframes art-tilt { 0%, 100% { transform: rotate(-2deg) skewY(2deg); } 50% { transform: translateY(-7px) rotate(2deg) skewY(-2deg) scale(1.025); } }
+  @keyframes art-float { 0%, 100% { transform: translate(0, 4px) rotate(-5deg); } 50% { transform: translate(6px, -13px) rotate(6deg); } }
+  @keyframes art-sweep {
+    0%, 22% { opacity: 0; transform: translateX(-110px) skewX(-14deg); }
+    35%, 56% { opacity: .75; }
+    68%, 100% { opacity: 0; transform: translateX(420px) skewX(-14deg); }
+  }
+  @keyframes art-edge-run {
+    from { opacity: .75; stroke-dashoffset: 0; }
+    to { opacity: .75; stroke-dashoffset: -100; }
+  }
 }
