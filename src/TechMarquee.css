@@ -1,0 +1,98 @@
+.tech-marquee {
+  --tech-gap: 2.5rem;
+  --tech-icon-size: 1.375rem;
+  display: flex;
+  align-items: center;
+  gap: .65rem 0;
+  min-height: 4.4rem;
+  padding-block: .8rem;
+  border-top: 1px solid var(--line, #1f2a26);
+  background: var(--bg, #0b0f0e);
+  color: #B5C2BB;
+}
+
+[data-theme="light"] .tech-marquee { color: var(--muted, #55635c); }
+
+.tech-marquee__label {
+  flex-shrink: 0;
+  padding-right: 24px;
+  color: var(--muted, #9aa8a1);
+  font: .85rem/1.5 var(--mono, monospace);
+}
+
+.tech-marquee__viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.tech-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: tech-marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.tech-marquee__viewport:hover .tech-marquee__track,
+.tech-marquee__viewport:focus-visible .tech-marquee__track {
+  animation-play-state: paused;
+}
+
+.tech-marquee__list {
+  display: flex;
+  flex: none;
+  gap: var(--tech-gap);
+  margin: 0;
+  padding: .25rem var(--tech-gap) .25rem 0;
+  list-style: none;
+}
+
+.tech-marquee__item {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  white-space: nowrap;
+}
+
+.tech-marquee__icon {
+  width: var(--tech-icon-size);
+  height: var(--tech-icon-size);
+  color: inherit;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.tech-marquee__item:hover .tech-marquee__icon {
+  color: var(--accent-text, #b6f36b);
+  transform: scale(1.1);
+}
+
+@keyframes tech-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 42rem) {
+  .tech-marquee {
+    --tech-gap: 1.5rem;
+    --tech-icon-size: 1.25rem;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee__viewport {
+    overflow-x: auto;
+    mask-image: none;
+  }
+
+  .tech-marquee__track {
+    animation: none;
+    will-change: auto;
+  }
+
+  .tech-marquee__list[aria-hidden="true"] { display: none; }
+  .tech-marquee__icon { transition: none; }
+  .tech-marquee__item:hover .tech-marquee__icon { transform: none; }
+}
