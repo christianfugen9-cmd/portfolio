@@ -87,12 +87,8 @@
   }
   .tech-marquee__viewport {
     flex: none;
-    overflow-x: auto;
-    mask-image: none;
+    min-height: 1.85rem;
   }
-  .tech-marquee__track { animation: none; will-change: auto; }
-  .tech-marquee__list[aria-hidden="true"] { display: none; }
-  .tech-marquee__list { padding-left: var(--gutter, 1rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
