@@ -28,6 +28,11 @@
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
+.tech-marquee--fallback .tech-marquee__viewport {
+  overflow-x: auto;
+  mask-image: none;
+}
+
 .tech-marquee__track {
   display: flex;
   width: max-content;
@@ -82,8 +87,12 @@
   }
   .tech-marquee__viewport {
     flex: none;
-    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+    overflow-x: auto;
+    mask-image: none;
   }
+  .tech-marquee__track { animation: none; will-change: auto; }
+  .tech-marquee__list[aria-hidden="true"] { display: none; }
+  .tech-marquee__list { padding-left: var(--gutter, 1rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
